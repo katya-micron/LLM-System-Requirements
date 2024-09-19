@@ -1,5 +1,5 @@
 {
-"model_size":8,
+"model_size":30,
 "architectures": [
   "OPTForCausalLM"
 ],
