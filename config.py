@@ -37,6 +37,7 @@ def load_predefined_models() -> dict:
     """Load model configurations from the 'predefined_models' folder."""
     models = {}
     for model_file in os.listdir("models"):
+        print(model_file)
         if model_file.endswith(".json"):
             with open(os.path.join("models", model_file), "r") as f:
                 models[model_file[:-5]] = json.load(f)
