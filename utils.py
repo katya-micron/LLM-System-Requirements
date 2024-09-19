@@ -41,14 +41,14 @@ def get_model_weights(model_size, precision):
 
 @st.cache_data
 def get_kv_cache(
-    precision, batch_size, sequence_length, hidden_size, num_hidden_layers
+    precision, batch_size, sequence_length, generated_length, hidden_size, num_hidden_layers
 ):
     """Calculate the memory required for key-value cache."""
     try:
         return (
             2
             * batch_size
-            * sequence_length
+            * (sequence_length + generated_length)
             * num_hidden_layers
             * hidden_size
             * DATA_TYPE_SIZES[precision]
@@ -74,7 +74,21 @@ def get_activation_memory(
     except:
         return 0
 
-
+@st.cache_data
+def get_activation_memory_inference(
+    batch_size, sequence_length,hidden_size, precision
+):
+    """Calculate the memory required for activations."""
+     
+    try:
+        return (
+            batch_size
+            * sequence_length
+            * hidden_size
+            * DATA_TYPE_SIZES[precision]
+        )
+    except:
+        return 0
 @st.cache_data
 def get_optimizer_memory(model_size, optimizer):
     """Calculate the memory required for optimizer."""
@@ -100,6 +114,7 @@ def calculate_inference_memory(
     precision,
     batch_size,
     sequence_length,
+    generated_length,
     hidden_size,
     num_hidden_layers,
     num_attention_heads,
@@ -107,15 +122,15 @@ def calculate_inference_memory(
     """Calculate the total memory required for inference."""
     model_weights = get_model_weights(model_size, precision)
     kv_cache = get_kv_cache(
-        precision, batch_size, sequence_length, hidden_size, num_hidden_layers
+        precision, batch_size, sequence_length, generated_length,hidden_size, num_hidden_layers
     )
-    activation_memory = get_activation_memory(
-        batch_size, sequence_length, hidden_size, num_attention_heads
+    activation_memory = get_activation_memory_inference(
+        batch_size, sequence_length, hidden_size, precision
     )
     return {
         "model_weights": get_memory(model_weights),
         "kv_cache": get_memory(kv_cache),
-        "activation_memory": 0, #get_memory(activation_memory),
+        "activation_memory": get_memory(activation_memory),
         "inference_memory": get_memory(model_weights, kv_cache, activation_memory),
     }
 
@@ -134,9 +149,9 @@ def calculate_training_memory(
 ):
     """Calculate the total memory required for training."""
     model_weights = get_model_weights(model_size, precision)
-    kv_cache = get_kv_cache(
-        precision, batch_size, sequence_length, hidden_size, num_hidden_layers
-    )
+    kv_cache = 0 #get_kv_cache(
+       # precision, batch_size, sequence_length, hidden_size, num_hidden_layers
+    #)
     activation_memory = get_activation_memory(
         batch_size, sequence_length, hidden_size, num_attention_heads
     )

@@ -71,6 +71,14 @@ sequence_length = st.sidebar.number_input(
     key="sequence_length",
     help="Number of tokens in the input sequence.",
 )
+generated_length = st.sidebar.number_input(
+    "Generated Length",
+    min_value=0,
+    step=1,
+    value=512,
+    key="generated_length",
+    help="Number of tokens in the output sequence. Only for Inference!",
+)
 hidden_size = st.sidebar.number_input(
     "Hidden Size",
     min_value=0,
@@ -114,6 +122,7 @@ inference_memory = calculate_inference_memory(
     precision,
     batch_size,
     sequence_length,
+    generated_length,
     hidden_size,
     num_hidden_layers,
     num_attention_heads,
@@ -140,7 +149,7 @@ training_memory = calculate_training_memory(
 
 training1.write(f"**Total Training Memory**: {training_memory['training_memory']}")
 training1.write(f"- **Model Weights**: {training_memory['model_weights']}")
-training1.write(f"- **KV Cache**: {training_memory['kv_cache']}")
+#training1.write(f"- **KV Cache**: {training_memory['kv_cache']}")
 training1.write(f"- **Activation Memory**: {training_memory['activation_memory']}")
 training1.write(f"- **Optimizer Memory**: {training_memory['optimizer_memory']}")
 training1.write(f"- **Gradients Memory**: {training_memory['gradients_memory']}")
