@@ -140,7 +140,7 @@ training_memory = calculate_training_memory(
 
 training1.write(f"**Total Training Memory**: {training_memory['training_memory']}")
 training1.write(f"- **Model Weights**: {training_memory['model_weights']}")
-#training1.write(f"- **KV Cache**: {training_memory['kv_cache']}")
+training1.write(f"- **KV Cache**: {training_memory['kv_cache']}")
 training1.write(f"- **Activation Memory**: {training_memory['activation_memory']}")
 training1.write(f"- **Optimizer Memory**: {training_memory['optimizer_memory']}")
 training1.write(f"- **Gradients Memory**: {training_memory['gradients_memory']}")
