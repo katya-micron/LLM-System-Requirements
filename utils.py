@@ -115,7 +115,7 @@ def calculate_inference_memory(
     return {
         "model_weights": get_memory(model_weights),
         "kv_cache": get_memory(kv_cache),
-        "activation_memory": get_memory(activation_memory),
+        "activation_memory": 0, #get_memory(activation_memory),
         "inference_memory": get_memory(model_weights, kv_cache, activation_memory),
     }
 
