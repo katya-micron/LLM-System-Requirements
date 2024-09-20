@@ -41,14 +41,7 @@ model = st.sidebar.selectbox(
 )
 
 # Parameters
-model_size = st.sidebar.number_input(
-    "Number of parameters (in billions)",
-    min_value=0,
-    step=1,
-    value=None,
-    key="model_size",
-    help="Number of parameters in the model in billions",
-)
+
 precision = st.sidebar.selectbox(
     "Precision",
     DATA_TYPES,
@@ -79,7 +72,7 @@ generated_length = st.sidebar.number_input(
     key="generated_length",
     help="Number of tokens in the output sequence. Only for Inference!",
 )
-st.sidebar.components.html("""<hr style="height:10px;border:none;color:#333;background-color:#333;" /> """)
+st.sidebar.divider()
 # Parameters
 model_size = st.sidebar.number_input(
     "Number of parameters (in billions)",
