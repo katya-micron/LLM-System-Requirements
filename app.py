@@ -79,6 +79,7 @@ generated_length = st.sidebar.number_input(
     key="generated_length",
     help="Number of tokens in the output sequence. Only for Inference!",
 )
+st.sidebar.components.html("""<hr style="height:10px;border:none;color:#333;background-color:#333;" /> """)
 hidden_size = st.sidebar.number_input(
     "Hidden Size",
     min_value=0,
