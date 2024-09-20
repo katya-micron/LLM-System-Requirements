@@ -1,5 +1,5 @@
 {
-    "model_size":1000,
+    "model_size":405,
     "architectures": [
       "MegatronForCausalLM"
     ],
