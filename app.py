@@ -80,6 +80,15 @@ generated_length = st.sidebar.number_input(
     help="Number of tokens in the output sequence. Only for Inference!",
 )
 st.sidebar.components.html("""<hr style="height:10px;border:none;color:#333;background-color:#333;" /> """)
+# Parameters
+model_size = st.sidebar.number_input(
+    "Number of parameters (in billions)",
+    min_value=0,
+    step=1,
+    value=None,
+    key="model_size",
+    help="Number of parameters in the model in billions",
+)
 hidden_size = st.sidebar.number_input(
     "Hidden Size",
     min_value=0,
